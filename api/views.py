@@ -1,5 +1,9 @@
-from django.shortcuts import render,HttpResponse
-
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+import requests
 # Create your views here.
+@api_view(['GET'])
 def search(request):
-    return HttpResponse('<h1>Hello World</h1>')
+    if(request.method == 'GET'):
+        r=requests.get('https://api.stackexchange.com/2.3/search/advanced?',params=request.GET)
+        return Response(r.json())
